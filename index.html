@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>Lightweight UI Components for HTML5/JS</title>
+    <script type="text/javascript" src="src/lib/sizzle/sizzle.js"></script>    
+    <script type="text/javascript" src="src/listbox/LC.Listbox.js"></script>
+</head>
+<body>
+
+    <article>
+        <header>
+            <h1>Listbox</h1>
+        </header>
+        <select id="select" size="4">
+            <option value="1">Item 1</option>
+            <option value="1">Item 2</option>
+            <option value="1">Item 3</option>
+            <option value="1">Item 4</option>
+            <option value="1">Item 5</option>
+            <option value="1">Item 6</option>
+        </select>
+    </article>
+
+    <article>
+        <header>
+            <h1>Dropdown</h1>
+        </header>
+        <select id="select">
+            <option value="1">Item 1</option>
+            <option value="1">Item 2</option>
+            <option value="1">Item 3</option>
+            <option value="1">Item 4</option>
+            <option value="1">Item 5</option>
+            <option value="1">Item 6</option>
+        </select>   
+    </article>
+
+    <script type="text/javascript">
+        window.onload = function()
+        {
+            LC.Listbox.apply();
+        }
+    </script>
+
+</body>
+</html>
