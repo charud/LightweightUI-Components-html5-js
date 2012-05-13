@@ -2,7 +2,33 @@
 <head>
     <title>Lightweight UI Components for HTML5/JS</title>
     <script type="text/javascript" src="src/lib/sizzle/sizzle.js"></script>    
+    <script type="text/javascript" src="src/templating/LC.Templating.js"></script> 
     <script type="text/javascript" src="src/listbox/LC.Listbox.js"></script>
+
+    <style type="text/css">
+        html, body
+        {
+            background-color: #eee;
+            font-family: helvetica, arial, sans-serif;
+            font-size: 14px;
+        }
+
+        .listbox
+        {
+            background-color: white;
+            width: 250px;
+        }
+
+        .listbox div
+        {
+            padding: 7px 6px;
+        }
+
+        .listbox .selected
+        {
+            background-color: #bbbbaa;
+        }
+    </style>
 </head>
 <body>
 
@@ -10,13 +36,13 @@
         <header>
             <h1>Listbox</h1>
         </header>
-        <select id="select" size="4">
+        <select id="select" size="4" class="listbox">
             <option value="1">Item 1</option>
-            <option value="1">Item 2</option>
-            <option value="1">Item 3</option>
-            <option value="1">Item 4</option>
-            <option value="1">Item 5</option>
-            <option value="1">Item 6</option>
+            <option value="2">Item 2</option>
+            <option value="3">Item 3</option>
+            <option value="4">Item 4</option>
+            <option value="5">Item 5</option>
+            <option value="6">Item 6</option>
         </select>
     </article>
 

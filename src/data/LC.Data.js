@@ -1,13 +1,12 @@
-var LC = LC || {};
+/*var LC = LC || {};
 
 LC.Data = (function(me)
 {
     var _data = {};
 
-    me.get = function(element, key)
+    me.get = function(key)
     {
-        
-        return _data[element]; 
+        return _data[key]; 
     };
 
     me.set = function(element, key, object)
@@ -16,4 +15,4 @@ LC.Data = (function(me)
     };
 
     return me;
-})(LC.Data || {});
+})(LC.Data || {});*/
