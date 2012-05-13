@@ -64,7 +64,8 @@ And this javascript
 	var elmArticle = document.getElementById("myArticle");
 	var article = {
 		title = "Will the Leaning Tower of Pisa ever fall?",
-		body = "Pisa without its precariously tilted landmark is like San Francisco without the Golden Gate or London without Buckingham Palace",
+		body = "Pisa without its precariously tilted landmark is like San
+		Francisco without the Golden Gate or London without Buckingham Palace",
 		author = "William Harris"
 	};
 	
