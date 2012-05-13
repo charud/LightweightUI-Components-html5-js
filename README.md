@@ -45,3 +45,31 @@ And then
     }
 
 Selected items will get a "selected" class applied to them.
+
+Templating
+==========
+
+This element
+
+	<article id="myArticle">
+		<header>
+			<h1>[title]</h1>
+		</header>
+		<p>[body]</p>
+		<p>By <em>[author]</em></p>
+	</article>
+
+And this javascript
+
+	var elmArticle = document.getElementById("myArticle");
+	var article = {
+		title = "Will the Leaning Tower of Pisa ever fall?",
+		body = "Pisa without its precariously tilted landmark is like San Francisco without the Golden Gate or London without Buckingham Palace",
+		author = "William Harris"
+	};
+	
+	var elmRenderedArticle = LC.Templating.render(elmArticle, article);
+
+Will result in a new rendered DOM element which can replace the original template using
+
+	elmArticle.parentNode.replaceChild(elmRenderedArticle, elmArticle);
