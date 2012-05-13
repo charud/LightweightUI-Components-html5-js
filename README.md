@@ -71,6 +71,17 @@ And this javascript
 	
 	var elmRenderedArticle = LC.Templating.render(elmArticle, article);
 
-Will result in a new rendered DOM element which can replace the original template using
+Will result in a new rendered DOM element 
+
+	<article id="myArticle">
+		<header>
+			<h1>Will the Leaning Tower of Pisa ever fall?</h1>
+		</header>
+		<p>Pisa without its precariously tilted landmark is like San
+		Francisco without the Golden Gate or London without Buckingham Palace</p>
+		<p>By <em>William Harris</em></p>
+	</article>
+
+Which can replace the original template using
 
 	elmArticle.parentNode.replaceChild(elmRenderedArticle, elmArticle);
