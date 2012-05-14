@@ -44,7 +44,8 @@ JS
 	
 	LC.Listbox.applyAll();
 
-Will apply Listbox behaviors to the <select> box because it 1) Is a <select> and 2) Has a size attribute larger than 1. Returns an array with all LC.Listbox instances that were created.
+Will apply Listbox behaviors to the select box because it is a <select> and
+has a size attribute larger than 1. Returns an array with all LC.Listbox instances that were created.
 
 Behaviours will also be applied to elements with a data-component attribute that matches the components name, for example
 
@@ -104,7 +105,7 @@ And then
 
 Selected items will get a "selected" class applied to them.
 
-Because some web browsers, like Chrome, strips HTML out of <option> elements Listboxes may also be created by using an <ul> or <ol> element and manual attachment
+Because some web browsers, like Chrome, strips HTML out of option elements Listboxes may also be created by using an ul or ol element and manual attachment
 
 
 Templating
