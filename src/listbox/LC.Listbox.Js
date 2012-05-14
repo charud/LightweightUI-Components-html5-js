@@ -9,7 +9,8 @@ LC.Listbox = function(options)
 {
     var me = {};
     var _element;
-    var _newElement;
+    var _itemTemplate;
+
     var _items = [];
     var _multipleSelection = false;
 
@@ -18,27 +19,22 @@ LC.Listbox = function(options)
         _element = options.element;
         _multipleSelection = options._multipleSelection || false;
 
-        // Retrieve all items that are already populated in the <select>
-        var elmItems = Sizzle("option", _element);
+        // Retrieve all items that are already populated in the element
+        var elmItems = _element.childNodes;
         for(var i in elmItems)
         {
+            if(elmItems[i].nodeType != 1) continue; // ignore non-elements
+
             var elmItem = elmItems[i];
             _items.push({
                 content: elmItem.innerHTML,
                 value: elmItem.value
             })
         }
-
-        // Replace the <select> with a more flexible <div>-tag
-        _newElement = document.createElement("div");
-        _element.parentNode.replaceChild(_newElement, _element);
-
-        // Copy properties from the original elements
-        _newElement.className = _element.className;
     
         // Register click handler for selection
-        _newElement.addEventListener("mousedown", onListboxClicked, false);
-        _newElement.addEventListener("keydown", onListboxKeydown, true);
+        _element.addEventListener("mousedown", onListboxClicked, true);
+        _element.addEventListener("keydown", onListboxKeydown, true);
 
         me.invalidateItems();
     };
@@ -65,33 +61,32 @@ LC.Listbox = function(options)
 
     var onListboxKeydown = function(e)
     {
-        console.log("key down");
+        //console.log("key down");
     }
 
     me.invalidateSelection = function()
     {
-        var listElements = _newElement.childNodes;
+        var listElements = _element.childNodes;
         for(var i in listElements)
         {
             if(listElements[i].nodeType != 1) continue; // ignore non-elements
             
-            var element = listElements[i];
+            var listElement = listElements[i];
             var item = _items[i];
             if(item.selected)
             {
-                element.className = "selected";
+                LC.Element.addClass(listElement, "selected");
             }
             else
             {
-                element.className = "";
+                LC.Element.removeClass(listElement, "selected");
             }
         }
     };  
 
     me.invalidateItems = function()
     {
-        var elmTemplate = document.createElement("div");
-        elmTemplate.innerHTML = "[content]";
+        var elmTemplate = getItemTemplate();
 
         var htmlItems = "";
         for(var i in _items)
@@ -99,7 +94,7 @@ LC.Listbox = function(options)
             var item = _items[i];
             htmlItems += LC.Templating.render(elmTemplate, item, true);
         }
-        _newElement.innerHTML = htmlItems;
+        _element.innerHTML = htmlItems;
     };
 
     me.setItems = function(items)
@@ -107,17 +102,77 @@ LC.Listbox = function(options)
         _items = items;
     }
 
+    var getItemTemplate = function()
+    {
+        if(!_itemTemplate) 
+        {
+            // Try to find a child with the class "template" inside the element and use that
+            // Don't forget the remove the .template class from the template or else all generated
+            // elements would inherit it
+            _itemTemplate = Sizzle(".template", _element)[0];
+            if(_itemTemplate) 
+            {
+                LC.Element.removeClass(_itemTemplate, ".template");
+            }
+
+            // Otherwise fallback to a clone of the first child and clear its innerHTML
+            // so that we at least get an element with the same type as its sibblings    
+            if(!_itemTemplate)
+            {
+                // Find first real element among child nodes
+                var firstChild = new LC.Enumerable(_element.childNodes)
+                                    .first(LC.Element.isValidNode);
+
+                // And use it
+                if(firstChild)
+                {
+                    _itemTemplate = firstChild.cloneNode(true);
+                    _itemTemplate.innerHTML = "[content]";
+                }
+            }
+
+            // As a last resort, use a div
+            if(!_itemTemplate)
+            {
+                _itemTemplate = document.createElement("div");
+                _itemTemplate.innerHTML = "[content]";
+            }
+
+        }
+        return _itemTemplate;
+    };
+
     me.init();
     return me;
 };
 
-// Applies the LC.Listbox to all selects with size != 0
-LC.Listbox.apply = function()
+// Manual attachment.
+LC.Listbox.apply = function(elements)
 {
-    var listboxes = Sizzle("select[size!=0]");
-    for(i in listboxes)
+    // Ignore if no element, or an invalid element, was specified
+    if(!elements) return;
+
+    // Parse any strings with sizzle
+    if(typeof elements == "string") elements = Sizzle(elements);
+
+    // If user entered an array or if sizzle returned an array 
+    // we'd like to loop through it. Convert single elements to an array
+    // to make it consistent
+    if(elements.constructor != Array) elements = [elements];
+
+    // Create LC.Listbox objects and return them as an array
+    var lcListboxes = [];
+    for(var i in elements)
     {
-        var elmListbox = listboxes[i];
-        var lcListbox = new LC.Listbox({ element: elmListbox });
-    }        
+        var lcListbox = new LC.Listbox({ element: elements[i] });
+        lcListboxes.push(lcListbox);
+    }
+    return lcListboxes;
+}
+
+// Automatic attachment. Applies the LC.Listbox to all selects with size != 0
+// or with any element using data-component="listbox"
+LC.Listbox.applyAll = function()
+{
+    return LC.Listbox.apply("select[size!=0], *[data-component=listbox]");    
 }

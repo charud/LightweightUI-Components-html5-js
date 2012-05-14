@@ -2,6 +2,8 @@
 <head>
     <title>Lightweight UI Components for HTML5/JS</title>
     <script type="text/javascript" src="src/lib/sizzle/sizzle.js"></script>    
+    <script type="text/javascript" src="src/enumerable/LC.Enumerable.js"></script>
+    <script type="text/javascript" src="src/element/LC.Element.js"></script>
     <script type="text/javascript" src="src/templating/LC.Templating.js"></script> 
     <script type="text/javascript" src="src/listbox/LC.Listbox.js"></script>
 
@@ -17,9 +19,12 @@
         {
             background-color: white;
             width: 250px;
+            border: 1px solid #bbb;
+            list-style-type: none;
+            padding: 0px;
         }
 
-        .listbox div
+        .listbox li
         {
             padding: 7px 6px;
         }
@@ -27,6 +32,8 @@
         .listbox .selected
         {
             background-color: #bbbbaa;
+            background-color: #7799cc;
+            color: white;
         }
     </style>
 </head>
@@ -44,9 +51,16 @@
             <option value="5">Item 5</option>
             <option value="6">Item 6</option>
         </select>
+
+        <ul data-component="listbox" class="listbox">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>   
+    
     </article>
 
-    <article>
+    <!--<article>
         <header>
             <h1>Dropdown</h1>
         </header>
@@ -57,13 +71,15 @@
             <option value="1">Item 4</option>
             <option value="1">Item 5</option>
             <option value="1">Item 6</option>
-        </select>   
-    </article>
+        </select>
+
+    </article>-->
 
     <script type="text/javascript">
         window.onload = function()
         {
-            LC.Listbox.apply();
+            //LC.Listbox.apply("#select");
+            LC.Listbox.applyAll();
         }
     </script>
 
