@@ -57,9 +57,9 @@ Behaviours will also be applied to elements with a data-component attribute that
 
 An item template is used for all rendering of items. The components will use use one of three strategies when determing which template to use
 
-1) Look for a child with the class "template" and clone it
-2) Look at the first child and clone it but clear its innerHTML
-3) Create an empty div
+1. Look for a child with the class "template" and clone it
+2. Look at the first child and clone it but clear its innerHTML
+3. Create an empty div
 
 Listbox
 -------
