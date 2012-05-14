@@ -44,7 +44,7 @@ JS
 	
 	LC.Listbox.applyAll();
 
-Will apply Listbox behaviors to the select box because it is a <select> and
+Will apply Listbox behaviors to the select box because it is a select and
 has a size attribute larger than 1. Returns an array with all LC.Listbox instances that were created.
 
 Behaviours will also be applied to elements with a data-component attribute that matches the components name, for example
