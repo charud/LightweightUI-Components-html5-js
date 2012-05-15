@@ -8,7 +8,7 @@ var LC = LC || {};
 LC.Events = (function(me)
 {
 	// Objects cannot be used as keys, the workaround is to keep them
-	// as values in a separat array and track them by index
+	// as values in a separate array and track them by index
 	var _events = {};
 	var _objects = [];
 
