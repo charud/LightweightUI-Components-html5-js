@@ -28,5 +28,15 @@ LC.Element = (function(me)
 		return node.nodeType == 1;
 	}
 
+	me.foreachChild = function(element, action)
+	{
+		var children = element.childNodes;
+		for(var i in children)
+        {
+            if(children[i].nodeType != 1) continue; // ignore non-elements
+            action(children[i]);
+        }
+	}
+
 	return me;
 })(LC.LC || {});

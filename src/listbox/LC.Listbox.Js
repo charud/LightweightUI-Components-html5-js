@@ -20,17 +20,13 @@ LC.Listbox = function(options)
         _multipleSelection = options.multipleSelection || false;
 
         // Retrieve all items that are already populated in the element
-        var elmItems = _element.childNodes;
-        for(var i in elmItems)
+        LC.Element.foreachChild(_element, function(child)
         {
-            if(elmItems[i].nodeType != 1) continue; // ignore non-elements
-
-            var elmItem = elmItems[i];
             _items.push({
-                content: elmItem.innerHTML,
-                value: elmItem.value
-            })
-        }
+                content: child.innerHTML,
+                value: child.value
+            });
+        });
     
         // Register click handler for selection
         _element.addEventListener("mousedown", onListboxClicked, true);
@@ -183,27 +179,7 @@ LC.Listbox = function(options)
 // Manual attachment.
 LC.Listbox.apply = function(elements, options)
 {
-    // Ignore if no element, or an invalid element, was specified
-    if(!elements) return;
-    options = options || {};
-
-    // Parse any strings with sizzle
-    if(typeof elements == "string") elements = Sizzle(elements);
-
-    // If user entered an array or if sizzle returned an array 
-    // we'd like to loop through it. Convert single elements to an array
-    // to make it consistent
-    if(elements.constructor != Array) elements = [elements];
-
-    // Create LC.Listbox objects and return them as an array
-    var lcListboxes = [];
-    for(var i in elements)
-    {
-        options.element = elements[i];
-        var lcListbox = new LC.Listbox(options);
-        lcListboxes.push(lcListbox);
-    }
-    return lcListboxes;
+    LC.Component.apply(LC.Listbox, elements, options);
 }
 
 // Automatic attachment. Applies the LC.Listbox to all selects with size != 0
