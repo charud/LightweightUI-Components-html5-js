@@ -18,25 +18,25 @@ LC.Element = (function(me)
 	me.removeClass = function(element, className)
 	{
 		if (me.hasClass(element, className)) {
-            var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
-            element.className = element.className.replace(reg, ' ');
-        }
+		    var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+		    element.className = element.className.replace(reg, ' ');
+		}
 	};
 
 	me.isValidNode = function(node)
 	{
 		return node.nodeType == 1;
-	}
+	};
 
 	me.foreachChild = function(element, action)
 	{
 		var children = element.childNodes;
 		for(var i in children)
-        {
-            if(children[i].nodeType != 1) continue; // ignore non-elements
-            action(children[i]);
-        }
-	}
+		{
+		    if(children[i].nodeType != 1) continue; // ignore non-elements
+		    action(children[i]);
+		}
+	};
 
 	return me;
 })(LC.LC || {});
