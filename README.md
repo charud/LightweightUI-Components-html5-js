@@ -107,6 +107,15 @@ Selected items will get a "selected" class applied to them.
 
 Because some web browsers, like Chrome, strips HTML out of option elements Listboxes may also be created by using an ul or ol element and manual attachment
 
+### Multiple selection
+
+If the option multipleSelection is true the lists will allow multiple selection by using any of the modifier keys ctrl, shift and alt. This works for both manual and automatic behaviour attachment
+
+	LC.Listbox.applyAll({multipleSelection: true});
+
+Or
+	
+	LC.Listbox.apply("#mylistbox", {multipleSelection: true});
 
 Templating
 -------

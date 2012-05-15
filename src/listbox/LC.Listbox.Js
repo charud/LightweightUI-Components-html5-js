@@ -12,12 +12,12 @@ LC.Listbox = function(options)
     var _itemTemplate;
 
     var _items = [];
-    var _multipleSelection = false;
+    var _multipleSelection;
 
     me.init = function()
     {
         _element = options.element;
-        _multipleSelection = options._multipleSelection || false;
+        _multipleSelection = options.multipleSelection || false;
 
         // Retrieve all items that are already populated in the element
         var elmItems = _element.childNodes;
@@ -45,15 +45,49 @@ LC.Listbox = function(options)
         var elmItem = e.target;
         if(elmItem == null) return;
 
+        // Find which direct child of the Listbox the item belongs to
+        // (if user clicked an element that was nested)
+        while(elmItem.parentNode != _element)
+        {
+            elmItem = elmItem.parentNode;
+        }
+
         // Get index of element in list
-        for(var index = 0, e = elmItem; e = e.previousSibling; ++index);
+        for(var index = 0, em = elmItem; em = em.previousSibling; ++index);
+
+        var isMultipleSelect = _multipleSelection && (e.shiftKey || e.ctrlKey || e.altKey);
 
         // Get the item object and mark it as selected
         // and deselect other items if multiple selection is disabled
         for(var i in _items)
         {
-            if(i == index) _items[i].selected = true;
-            else if(false == _multipleSelection) _items[i].selected = false;
+            // Actions for the item that was clicked
+            if(i == index)
+            {
+                // If mutliple select is enabled and a modifier key was pressed
+                // the selection should toggle
+                if(isMultipleSelect)
+                {
+                    _items[i].selected = !_items[i].selected;
+                }
+                // Otherwise just select the item no matter what
+                else
+                {
+                    _items[i].selected = true;
+                }
+            }
+            // For all other items
+            else if(isMultipleSelect) 
+            {
+                // Do nothing, do not remove old selection if multiple selection
+                // is enabled and a modifier key is pressed. 
+                // This will allow for multiple selection
+            }
+            else
+            {
+                // Remove old selection
+                _items[i].selected = false;
+            }
         }
 
         me.invalidateSelection();
@@ -147,10 +181,11 @@ LC.Listbox = function(options)
 };
 
 // Manual attachment.
-LC.Listbox.apply = function(elements)
+LC.Listbox.apply = function(elements, options)
 {
     // Ignore if no element, or an invalid element, was specified
     if(!elements) return;
+    options = options || {};
 
     // Parse any strings with sizzle
     if(typeof elements == "string") elements = Sizzle(elements);
@@ -164,7 +199,8 @@ LC.Listbox.apply = function(elements)
     var lcListboxes = [];
     for(var i in elements)
     {
-        var lcListbox = new LC.Listbox({ element: elements[i] });
+        options.element = elements[i];
+        var lcListbox = new LC.Listbox(options);
         lcListboxes.push(lcListbox);
     }
     return lcListboxes;
@@ -172,7 +208,7 @@ LC.Listbox.apply = function(elements)
 
 // Automatic attachment. Applies the LC.Listbox to all selects with size != 0
 // or with any element using data-component="listbox"
-LC.Listbox.applyAll = function()
+LC.Listbox.applyAll = function(options)
 {
-    return LC.Listbox.apply("select[size!=0], *[data-component=listbox]");    
+    return LC.Listbox.apply("select[size!=0], *[data-component=listbox]", options);    
 }

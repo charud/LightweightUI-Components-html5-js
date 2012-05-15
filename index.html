@@ -35,29 +35,53 @@
             background-color: #7799cc;
             color: white;
         }
+
+        .listbox.horizontal li
+        {
+            float: left;
+        }
+
+        .clearfix:after {
+            content: ".";
+            display: block;
+            clear: both;
+            visibility: hidden;
+            line-height: 0;
+            height: 0;
+        }
+         
+        .clearfix {
+            display: inline-block;
+        }
+         
+        html[xmlns] .clearfix {
+            display: block;
+        }
+         
+        * html .clearfix {
+            height: 1%;
+        }
     </style>
 </head>
 <body>
 
     <article>
         <header>
-            <h1>Listbox</h1>
+            <h1>Listboxes with multiple selection</h1>
         </header>
-        <select id="select" size="4" class="listbox">
-            <option value="1">Item 1</option>
-            <option value="2">Item 2</option>
-            <option value="3">Item 3</option>
-            <option value="4">Item 4</option>
-            <option value="5">Item 5</option>
-            <option value="6">Item 6</option>
-        </select>
-
+        
         <ul data-component="listbox" class="listbox">
             <li>Item 1</li>
             <li>Item 2</li>
             <li>Item 3</li>
         </ul>   
-    
+
+        <ul class="listbox horizontal clearfix" data-component="listbox">
+            <li><img src="http://www.arthursclipart.org/birds/birds/bird%204.gif" height="100" /></li>
+            <li><img src="http://www.arthursclipart.org/birds/birds/bird%204.gif" height="100" /></li>
+            <li><img src="http://www.arthursclipart.org/birds/birds/bird%204.gif" height="100" /></li>
+            <li><img src="http://www.arthursclipart.org/birds/birds/bird%204.gif" height="100" /></li>
+        </ul> 
     </article>
 
     <!--<article>
@@ -79,7 +103,7 @@
         window.onload = function()
         {
             //LC.Listbox.apply("#select");
-            LC.Listbox.applyAll();
+            LC.Listbox.applyAll({multipleSelection: true});
         }
     </script>
 
