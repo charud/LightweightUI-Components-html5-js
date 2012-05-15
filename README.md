@@ -122,7 +122,7 @@ Or
 The Listbox currently supports one event when an item is selected. It can
 be listened to by using the following code:
 
-    var myListbox = LC.Listbox.apply();
+    var myListbox = LC.Listbox.apply("#myListbox");
     myListbox[0].on("itemSelected", function(item)
     {
         console.log("Item selected!", item);
