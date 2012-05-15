@@ -1,8 +1,8 @@
 // Array.indexOf support for browsers that do not support this natively
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/indexOf
-//if (!Array.prototype.indexOf) {
-//    Array.prototype.indexOf = function (searchElement /*, fromIndex */ ) {
-/*       "use strict";
+if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function (searchElement /*, fromIndex */ ) {
+       //"use strict";
         if (this == null) {
             throw new TypeError();
         }
@@ -31,4 +31,4 @@
         }
         return -1;
     }
-}*/
+}

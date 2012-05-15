@@ -9,7 +9,7 @@ LC.Component.apply = function(ComponentModule, elements, options)
     options = options || {};
 
     // Parse any strings with sizzle
-    if(typeof elements == "string") elements = Sizzle(elements);
+    if(typeof elements == "string") elements = LC.Lib.Sizzle(elements);
 
     // If user entered an array or if sizzle returned an array 
     // we'd like to loop through it. Convert single elements to an array

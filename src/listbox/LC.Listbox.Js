@@ -86,6 +86,7 @@ LC.Listbox = function(options)
             }
         }
 
+        trigger("itemSelected", _items[index]);
         me.invalidateSelection();
     };
 
@@ -139,7 +140,7 @@ LC.Listbox = function(options)
             // Try to find a child with the class "template" inside the element and use that
             // Don't forget the remove the .template class from the template or else all generated
             // elements would inherit it
-            _itemTemplate = Sizzle(".template", _element)[0];
+            _itemTemplate = LC.Lib.Sizzle(".template", _element)[0];
             if(_itemTemplate) 
             {
                 LC.Element.removeClass(_itemTemplate, ".template");
@@ -172,6 +173,17 @@ LC.Listbox = function(options)
         return _itemTemplate;
     };
 
+    // This module supports events
+    me.on = function(eventName, callback)
+    {
+        LC.Events.on(me, eventName, callback);
+    };
+
+    var trigger = function(eventName, parameters)
+    {
+        LC.Events.trigger(me, eventName, parameters);
+    };
+
     me.init();
     return me;
 };
@@ -179,7 +191,7 @@ LC.Listbox = function(options)
 // Manual attachment.
 LC.Listbox.apply = function(elements, options)
 {
-    LC.Component.apply(LC.Listbox, elements, options);
+    return LC.Component.apply(LC.Listbox, elements, options);
 }
 
 // Automatic attachment. Applies the LC.Listbox to all selects with size != 0

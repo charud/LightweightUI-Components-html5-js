@@ -1437,6 +1437,8 @@ var posProcess = function( selector, context, seed ) {
 
 // EXPOSE
 
-window.Sizzle = Sizzle;
+window.LC = window.LC || {};
+window.LC.Lib = LC.Lib || {};
+window.LC.Lib.Sizzle = Sizzle;
 
 })();

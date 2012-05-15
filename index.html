@@ -1,7 +1,9 @@
 <html>
 <head>
     <title>Lightweight UI Components for HTML5/JS</title>
-    <script type="text/javascript" src="src/lib/sizzle/sizzle.js"></script>    
+    <script type="text/javascript" src="src/lib/sizzle/sizzle.js"></script>   
+    <script type="text/javascript" src="src/lib/indexOf.js"></script>  
+    <script type="text/javascript" src="src/events/LC.Events.js"></script>
     <script type="text/javascript" src="src/enumerable/LC.Enumerable.js"></script>
     <script type="text/javascript" src="src/element/LC.Element.js"></script>
     <script type="text/javascript" src="src/templating/LC.Templating.js"></script> 
@@ -71,7 +73,7 @@
             <h1>Listboxes with multiple selection</h1>
         </header>
         
-        <ul data-component="listbox" class="listbox">
+        <ul data-component="listbox" class="listbox" id="firstListbox">
             <li>Item 1</li>
             <li>Item 2</li>
             <li>Item 3</li>
@@ -83,6 +85,8 @@
             <li><img src="http://www.arthursclipart.org/birds/birds/bird%204.gif" height="100" /></li>
             <li><img src="http://www.arthursclipart.org/birds/birds/bird%204.gif" height="100" /></li>
         </ul> 
+
+        <p>You have selected item: <em id="lblSelectedItem"></em></p>
     </article>
 
     <!--<article>
@@ -103,8 +107,12 @@
     <script type="text/javascript">
         window.onload = function()
         {
-            //LC.Listbox.apply("#select");
-            LC.Listbox.applyAll({multipleSelection: true});
+            var listboxes = LC.Listbox.applyAll({multipleSelection: true});
+            listboxes[0].on("itemSelected", function(item)
+            {
+                console.log("Item selected!", item);
+                document.getElementById("lblSelectedItem").innerHTML = item.content;
+            });
         }
     </script>
 
