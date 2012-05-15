@@ -1,8 +1,9 @@
-var LC = LC || {};
 /* 
    @author Charlie Rudenstål 
    @url https://github.com/charlie-rudenstal/LightweightUI-Components-html5-js 
 */
+
+var LC = LC || {};
 
 LC.Events = (function(me)
 {
