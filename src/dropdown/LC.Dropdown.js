@@ -23,7 +23,7 @@ LC.Dropdown = function(options)
                 value: child.value
             });
         });
-    
+
         // Register click handler for selection
         _element.addEventListener("mousedown", onListboxClicked, true);
         _element.addEventListener("keydown", onListboxKeydown, true);
@@ -41,8 +41,8 @@ LC.Dropdown.apply = function(elements, options)
     LC.Component.apply(LC.Dropdown, elements, options);
 }
 
-// Automatic attachment. Applies the LC.Listbox to all selects with size != 0
-// or with any element using data-component="listbox"
+// Automatic attachment. Applies the LC.Dropdown to all selects with size == 0
+// or with any element using data-component="dropdown"
 LC.Dropdown.applyAll = function(options)
 {
     return LC.Dropdown.apply("select[size=0], *[data-component=dropdown]", options);    
